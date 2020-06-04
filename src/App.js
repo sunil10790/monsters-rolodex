@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { CardList } from './components/card-list/card-list.component'
 
 import './App.css';
+import { SearchBox } from './components/search-box/search-box.component';
 
 class App extends Component {
   constructor() {
@@ -22,6 +23,10 @@ class App extends Component {
        }));
   }
 
+  handleChange = (e) => {
+    this.setState({searchField: e.target.value})
+  }
+
   render() {
     const { monsters, searchField } = this.state;
     const filteredMonsters = monsters.filter((monster) => {
@@ -30,11 +35,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input 
-          type='search'
-          placeholder='Search Monsters'
-          onChange={(e) => this.setState({searchField: e.target.value})} >
-        </input>
+        <SearchBox 
+          placeholder = 'Search Monsters'
+          handleChange = {this.handleChange}
+        />
         <CardList monsters={filteredMonsters} />
       </div>
     )
